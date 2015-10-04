@@ -20,6 +20,7 @@ void uart_writeString(const char *s);
 void uart_writeAbsatz();
 void uart_writeInt8(char zahl);
 void uart_writeInt16(short zahl);
+void uart_writeInt32(long zahl);
 void uart_writeFloat(float zahl2);
 char uart_stringToInt8(char s[]);
 short uart_stringToInt16(short s[]);

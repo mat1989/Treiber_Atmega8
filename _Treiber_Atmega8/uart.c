@@ -168,8 +168,11 @@ void uart_writeInt16(short zahl) {
 	uart_writeChar('0' + einer);
 }
 
-void uart_writeFloat(float zahl2) {
-	long zahl = (long) (zahl2 * 100);
+void uart_writeInt32(long zahl) {
+	char hundertmillion;
+	char zehnmillion;
+	char million;
+	char hunderttausender;
 	char zehntausender;
 	char tausender;
 	char hunderter;
@@ -180,6 +183,112 @@ void uart_writeFloat(float zahl2) {
 	if (zahl < 0) {
 		zahl = -zahl;
 		uart_writeChar('-');
+	}
+
+	if (zahl >= 100000000) {
+		hundertmillion = zahl / 100000000;
+		zahl = zahl % 100000000;
+		uart_writeChar('0' + hundertmillion);
+		showZero = 1;
+	}
+
+	if (zahl >= 10000000) {
+		zehnmillion = zahl / 10000000;
+		zahl = zahl % 10000000;
+		uart_writeChar('0' + zehnmillion);
+		showZero = 1;
+	}
+
+	if (zahl >= 1000000) {
+		million = zahl / 1000000;
+		zahl = zahl % 1000000;
+		uart_writeChar('0' + million);
+		showZero = 1;
+	}
+
+	if (zahl >= 100000) {
+		hunderttausender = zahl / 100000;
+		zahl = zahl % 100000;
+		uart_writeChar('0' + hunderttausender);
+		showZero = 1;
+	}
+
+	if (zahl >= 10000) {
+		zehntausender = zahl / 10000;
+		zahl = zahl % 10000;
+		uart_writeChar('0' + zehntausender);
+		showZero = 1;
+	}
+
+	if (zahl >= 1000 || showZero == 1) {
+		tausender = zahl / 1000;
+		zahl = zahl % 1000;
+		uart_writeChar('0' + tausender);
+		showZero = 1;
+	}
+
+	if (zahl >= 100 || showZero == 1) {
+		hunderter = zahl / 100;
+		zahl = zahl % 100;
+		uart_writeChar('0' + hunderter);
+		showZero = 1;
+	}
+
+	if (zahl >= 10 || showZero == 1) {
+		zehner = zahl / 10;
+		zahl = zahl % 10;
+		uart_writeChar('0' + zehner);
+		showZero = 1;
+	}
+
+	einer = zahl;
+	uart_writeChar('0' + einer);
+}
+
+void uart_writeFloat(float zahl2) {
+	long zahl = (long) (zahl2 * 100);
+	char hundertmillion;
+	char zehnmillion;
+	char million;
+	char hunderttausender;
+	char zehntausender;
+	char tausender;
+	char hunderter;
+	char zehner;
+	char einer;
+	char showZero = 0;
+
+	if (zahl < 0) {
+		zahl = -zahl;
+		uart_writeChar('-');
+	}
+
+	if (zahl >= 100000000) {
+		hundertmillion = zahl / 100000000;
+		zahl = zahl % 100000000;
+		uart_writeChar('0' + hundertmillion);
+		showZero = 1;
+	}
+
+	if (zahl >= 10000000) {
+		zehnmillion = zahl / 10000000;
+		zahl = zahl % 10000000;
+		uart_writeChar('0' + zehnmillion);
+		showZero = 1;
+	}
+
+	if (zahl >= 1000000) {
+		million = zahl / 1000000;
+		zahl = zahl % 1000000;
+		uart_writeChar('0' + million);
+		showZero = 1;
+	}
+
+	if (zahl >= 100000) {
+		hunderttausender = zahl / 100000;
+		zahl = zahl % 100000;
+		uart_writeChar('0' + hunderttausender);
+		showZero = 1;
 	}
 
 	if (zahl >= 10000) {
